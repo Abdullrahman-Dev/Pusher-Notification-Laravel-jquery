@@ -41,15 +41,37 @@ class PostController extends Controller
             
         }else{
                
-            Post::create([  
-                'body'    => $request->body , 
-                'user_id' => Auth::user()->id ,   
-            ]);
+            try{
 
-            return response() -> json([
-                "status" => "success",
-                "msg"    => "messege sent successfully",
-            ]);
+                Post::create([  
+                    'body'    => $request->body , 
+                    'user_id' => Auth::user()->id ,   
+                ]);
+
+                // set $data var to save post info in it
+                $data = [
+                    "post_body" => $request->body  ,
+                    'user_id'   => Auth::user()->id ,   
+                    'user_name' => Auth::user()->name ,   
+                ];
+
+                // send $data in __construct() event NewNotification 
+                event( new NewNotification($data) ); 
+
+                
+                return response() -> json([
+                    "status" => "success",
+                    "msg"    => "messege sent successfully",
+                ]);
+                
+            }catch( Exception $e ){
+
+                return response() -> json([
+                    "status" => "error",
+                    "msg"    => "insert opration failed",
+                ]);
+
+            }
 
         }
     }

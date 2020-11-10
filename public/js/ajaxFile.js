@@ -10,11 +10,14 @@ $(".create-post-btn").on( "click",function (e){
           contentType : false , 
           cache    : false,
           success: function ( data ) {
-               // alert( data.msg );
-               if( data.status == "error" ){
+               // alert( data );
+               if( data.status == "error" && data.msg == "validation error" ){
                     $.each( data.errors , function( key , val ){
                          $("small.text-danger." + key ).text(val[0]);
                     });
+               }else if( data.status == "error" && data.msg == "insert opration failed" ){
+                    alert("insert opration failed");
+                    window.location = 'posts' ;
                }else if( data.status == "success" ){
                     window.location = 'posts' ;
                }
