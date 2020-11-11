@@ -51,8 +51,7 @@ class PostController extends Controller
                 // set $data var to save post info in it
                 $data = [
                     "post_body" => $request->body  ,
-                    'user_id'   => Auth::user()->id ,   
-                    'user_name' => Auth::user()->name ,   
+                    'user_Info' => Auth::user() ,   
                 ];
 
                 // send $data in __construct() event NewNotification 

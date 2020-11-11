@@ -22,8 +22,8 @@ channel.bind('NewPost', function(data) {
      `<a class="dropdown-item notifications-item" href="">
           <img src="http://bootdey.com/img/Content/user_1.jpg" alt="img">
           <div class="text">
-               <h4>` + data.user_name + `</h4>
-               <p> ` + data.user_name + ` create new post </p>
+               <h4>` + data.user_Info.name + `</h4>
+               <p> ` + data.user_Info.name + ` create new post </p>
           </div>
      </a>` ;
      notifications.append( newNotificationHtml );

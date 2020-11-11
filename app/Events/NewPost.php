@@ -23,14 +23,12 @@ class NewPost implements ShouldBroadcast
 
     // set public var 
     public $post_body;
-    public $user_id;
-    public $user_name;
+    public $user_Info;
 
     public function __construct($data)   // get data from store func in postController
     {
         $this->post_body   = $data["post_body"] ;  
-        $this->user_id     = $data["user_id"] ;       
-        $this->user_name   = $data["user_name"] ;       
+        $this->user_Info   = $data["user_Info"] ;       
     }
 
     /**
@@ -41,7 +39,7 @@ class NewPost implements ShouldBroadcast
     public function broadcastOn()
     {
         return new channel('new-post');  // channel name to connect it with pusher
-        // return ['new-notification'];       
+        // return ['new-post'];       
     }
 
     public function broadcastAs()
