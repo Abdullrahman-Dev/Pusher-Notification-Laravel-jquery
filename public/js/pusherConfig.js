@@ -46,7 +46,7 @@ channel.bind('NewPost', function(data) {
                                              <div class="title h5">
                                                   <a href=""><b> ` + data.user_info.name + ` </b></a>
                                              </div>
-                                             <h6 class="text-muted time"> ` + data.post_data.added_at + ` </h6>
+                                             <h6 class="text-muted time"> 1 second ago </h6>
                                         </div>
                                    </div> 
                                    <div class="post-description"> 

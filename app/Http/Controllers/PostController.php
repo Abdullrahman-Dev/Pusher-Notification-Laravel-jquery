@@ -47,7 +47,6 @@ class PostController extends Controller
                 $post->body    = $request->body ;
                 $post->user_id = Auth::user()->id ;
                 $post->save();
-                $post -> setAttribute("added_at" , $post -> created_at -> diffForHumans() ); 
 
 
                 // set $data var to save post info in it
@@ -62,8 +61,7 @@ class PostController extends Controller
                 return response() -> json([
                     "status" => "success",
                     "msg"    => "messege sent successfully",
-                    "post_data"   => $post ,
-                    "user_info"   => Auth::user() ,
+                    "data"   => $data ,
                 ]);
                 
             }catch( Exception $e ){

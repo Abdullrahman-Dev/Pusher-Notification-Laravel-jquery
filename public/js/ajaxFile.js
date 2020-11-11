@@ -35,13 +35,13 @@ $(".create-post-btn").on( "click",function (e){
                                                   </div>
                                                   <div class="float-left meta">
                                                        <div class="title h5">
-                                                            <a href=""><b> ` + response.user_info.name + ` </b></a>
+                                                            <a href=""><b> ` + response.data.user_info.name + ` </b></a>
                                                        </div>
-                                                       <h6 class="text-muted time"> ` + response.post_data.added_at + ` </h6>
+                                                       <h6 class="text-muted time"> 1 second ago  </h6>
                                                   </div>
                                              </div> 
                                              <div class="post-description"> 
-                                                  <p> ` + response.post_data.body + ` </p>
+                                                  <p> ` + response.data.post_data.body + ` </p>
                                              </div>
                                         </div>
                                    </div>

@@ -99,7 +99,7 @@
 
     <!-------->
     <script>
-        var user_id = "{{ Auth::id() }}";
+        var user_id = "{{ Auth::id() }}"; // save user id in var for don't show notification for me
     </script>
     <!-- App Script -->
     <script src="{{ asset('js/app.js') }}" defer></script>
