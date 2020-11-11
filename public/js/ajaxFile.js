@@ -9,16 +9,16 @@ $(".create-post-btn").on( "click",function (e){
           processData: false,
           contentType : false , 
           cache    : false,
-          success: function ( data ) {
-               // alert( data );
-               if( data.status == "error" && data.msg == "validation error" ){
-                    $.each( data.errors , function( key , val ){
+          success: function ( response ) {
+               // alert( response );
+               if( response.status == "error" && response.msg == "validation error" ){
+                    $.each( response.errors , function( key , val ){
                          $("small.text-danger." + key ).text(val[0]);
                     });
-               }else if( data.status == "error" && data.msg == "insert opration failed" ){
+               }else if( response.status == "error" && response.msg == "insert opration failed" ){
                     alert("insert opration failed");
                     window.location = 'posts' ;
-               }else if( data.status == "success" ){
+               }else if( response.status == "success" ){
                     window.location = 'posts' ;
                }
           },

@@ -43,10 +43,11 @@ class PostController extends Controller
                
             try{
 
-                Post::create([  
-                    'body'    => $request->body , 
-                    'user_id' => Auth::user()->id ,   
-                ]);
+                $post = new Post();
+                $post->body    = $request->body ;
+                $post->user_id = Auth::user()->id ;
+                $post->save();
+
 
                 // set $data var to save post info in it
                 $data = [
@@ -57,10 +58,10 @@ class PostController extends Controller
                 // send $data in __construct() event NewNotification 
                 event( new NewPost($data) ); 
 
-                
                 return response() -> json([
                     "status" => "success",
                     "msg"    => "messege sent successfully",
+                    "data"   => $post ,
                 ]);
                 
             }catch( Exception $e ){
