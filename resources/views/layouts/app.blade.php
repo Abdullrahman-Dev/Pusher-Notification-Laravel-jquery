@@ -104,15 +104,14 @@
     <!-- jquery Script -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <!-- ajaxFile Script -->
-    <script src="{{ asset('js/ajaxFile.js') }}" defer></script>
-
     <!-- pusher Script -->
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <!-- pusherConfig Script -->
     <script src="{{ asset('js/pusherConfig.js') }}" defer></script>
 
+    <!-- ajaxFile Script -->
+    <script src="{{ asset('js/ajaxFile.js') }}" defer></script>
 
 </body>
 </html>

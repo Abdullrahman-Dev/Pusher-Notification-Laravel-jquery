@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewNotification;
+use App\Events\NewPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,7 +56,7 @@ class PostController extends Controller
                 ];
 
                 // send $data in __construct() event NewNotification 
-                event( new NewNotification($data) ); 
+                event( new NewPost($data) ); 
 
                 
                 return response() -> json([

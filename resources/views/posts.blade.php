@@ -20,7 +20,7 @@
         </div>
         <!--------- Show Posts ---------->
         <div class="col-md-8">
-            <div class="card">
+            <div class="card card-container">
                 <div class="card-header"> Posts </div>
                 <div class="card-body">
                     @foreach ($posts as $post)

@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewNotification implements ShouldBroadcast
+class NewPost implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -40,12 +40,12 @@ class NewNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new channel('new-notification');  // channel name to connect it with pusher
+        return new channel('new-post');  // channel name to connect it with pusher
         // return ['new-notification'];       
     }
 
     public function broadcastAs()
     {
-        return 'NewNotification';  // event name to connect it with pusher
+        return 'NewPost';  // event name to connect it with pusher
     }
 }

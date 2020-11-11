@@ -9,18 +9,15 @@ var pusher = new Pusher('3f9a0b89de189c92500c', {
      cluster: 'mt1'
 });
 
-var channel = pusher.subscribe('new-notification');
-// channel.bind('App\\Events\\NewNotification', function(data) {
-channel.bind('NewNotification', function(data) {
+var channel = pusher.subscribe('new-post');
+// channel.bind('App\\Events\\NewPost', function(data) {
+channel.bind('NewPost', function(data) {
 
-     // set some navbar vars 
-     var notificationsWrapper   = $('li.dropdown.dropdown-notifications');  // navbar li 
-     var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');  // find <a data-toggle=""></a>
-     var notificationsCountElem = notificationsToggle.find('span.badge.badge-pill');
-     var notificationsCount     = parseInt( notificationsCountElem.text() );
-     var notifications          = notificationsWrapper.find('div.notifications-container');
 
-     var existingNotifications = notifications.html();
+     /*=========== Add Notifications ==============*/
+     var notificationsCountElem = $('.dropdown-notifications span.badge.badge-pill'); 
+     var notificationsCount     = parseInt( $('.dropdown-notifications span.badge.badge-pill').text() );
+     var notifications          = $('.dropdown-menu.dropdown-menu-right.notifications-container');
      var newNotificationHtml = 
      `<a class="dropdown-item notifications-item" href="">
           <img src="http://bootdey.com/img/Content/user_1.jpg" alt="img">
@@ -29,9 +26,9 @@ channel.bind('NewNotification', function(data) {
                <p> ` + data.user_name + ` create new post </p>
           </div>
      </a>` ;
-     notifications.html(newNotificationHtml + existingNotifications);
+     notifications.append( newNotificationHtml );
      notificationsCount += 1;
      notificationsCountElem.text(notificationsCount);
-     notificationsWrapper.show();
 
 });
+
