@@ -1969,9 +1969,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      posts: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getPosts();
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+
+      axios.get('/api/posts/get_posts').then(function (response) {
+        console.log(response.data);
+        _this.posts = response.data.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -37628,47 +37647,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "col-md-8" }, [
+    _c("div", { staticClass: "card card-container" }, [
+      _c("div", { staticClass: "card-header" }, [_vm._v(" Posts ")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        _vm._l(_vm.posts, function(post) {
+          return _c("div", { key: post.id, staticClass: "container" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("div", { staticClass: "card card-white post" }, [
+                  _c("div", { staticClass: "post-heading" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "float-left meta" }, [
+                      _c("div", { staticClass: "title h5" }, [
+                        _c("a", { attrs: { href: "" } }, [
+                          _c("b", [_vm._v(" " + _vm._s(post.user.name) + " ")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("h6", { staticClass: "text-muted time" }, [
+                        _vm._v(" " + _vm._s(post.added_at) + " ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-description" }, [
+                    _c("p", [_vm._v(_vm._s(post.body))])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("div", { staticClass: "card card-container" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v(" Posts ")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _vm._v("\n          @foreach ($posts as $post)\n               "),
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-12" }, [
-                _c("div", { staticClass: "card card-white post" }, [
-                  _c("div", { staticClass: "post-heading" }, [
-                    _c("div", { staticClass: "float-left image" }, [
-                      _c("img", {
-                        staticClass: "img-circle avatar",
-                        attrs: {
-                          src: "http://bootdey.com/img/Content/user_1.jpg",
-                          alt: "user profile image"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "float-left meta" }, [
-                      _c("div", { staticClass: "title h5" })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "post-description" })
-                ])
-              ])
-            ])
-          ]),
-          _vm._v("\n          @endforeach\n          ")
-        ])
-      ])
+    return _c("div", { staticClass: "float-left image" }, [
+      _c("img", {
+        staticClass: "img-circle avatar",
+        attrs: {
+          src: "http://bootdey.com/img/Content/user_1.jpg",
+          alt: "user profile image"
+        }
+      })
     ])
   }
 ]

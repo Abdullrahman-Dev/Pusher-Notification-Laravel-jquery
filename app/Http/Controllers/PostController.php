@@ -10,18 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
+    {
+        return view( 'posts');
+    }
+
+    public function get_posts()
     {
         $posts = Post::with('user')->get();
         foreach( $posts as $post ){
             $post -> setAttribute("added_at" , $post -> created_at -> diffForHumans() ); 
         } 
-        return view( 'posts' , compact("posts") );
+        return response() -> json([
+            "status" => "success",
+            "data" => $posts 
+        ]);
     }
     
     public function store(Request $request)
