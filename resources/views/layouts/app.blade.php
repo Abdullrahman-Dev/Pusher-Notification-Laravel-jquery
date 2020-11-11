@@ -97,7 +97,10 @@
         </main>
     </div>
 
-
+    <!-------->
+    <script>
+        var user_id = "{{ Auth::id() }}";
+    </script>
     <!-- App Script -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
