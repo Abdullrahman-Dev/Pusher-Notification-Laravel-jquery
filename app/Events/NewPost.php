@@ -22,13 +22,13 @@ class NewPost implements ShouldBroadcast
 
 
     // set public var 
-    public $post_body;
-    public $user_Info;
+    public $post_data;
+    public $user_info;
 
     public function __construct($data)   // get data from store func in postController
     {
-        $this->post_body   = $data["post_body"] ;  
-        $this->user_Info   = $data["user_Info"] ;       
+        $this->post_data   = $data["post_data"] ;  
+        $this->user_info   = $data["user_info"] ;       
     }
 
     /**

@@ -19,7 +19,37 @@ $(".create-post-btn").on( "click",function (e){
                     alert("insert opration failed");
                     window.location = 'posts' ;
                }else if( response.status == "success" ){
-                    window.location = 'posts' ;
+
+                    $(".card-body .create-post textarea").val('');
+
+                    /*============== Add Post ==============*/
+                    var postsContainer   = $('.col-md-8 div.card-container .card-body');
+                    var newPostHtml = 
+                         `<div class="container">
+                              <div class="row">
+                                   <div class="col-12">
+                                        <div class="card card-white post">
+                                             <div class="post-heading">
+                                                  <div class="float-left image">
+                                                       <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                                  </div>
+                                                  <div class="float-left meta">
+                                                       <div class="title h5">
+                                                            <a href=""><b> ` + response.user_info.name + ` </b></a>
+                                                       </div>
+                                                       <h6 class="text-muted time"> ` + response.post_data.added_at + ` </h6>
+                                                  </div>
+                                             </div> 
+                                             <div class="post-description"> 
+                                                  <p> ` + response.post_data.body + ` </p>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>` ;
+                    postsContainer.append(newPostHtml);
+
+
                }
           },
           error: function(feedback){

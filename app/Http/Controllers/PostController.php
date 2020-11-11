@@ -47,12 +47,13 @@ class PostController extends Controller
                 $post->body    = $request->body ;
                 $post->user_id = Auth::user()->id ;
                 $post->save();
+                $post -> setAttribute("added_at" , $post -> created_at -> diffForHumans() ); 
 
 
                 // set $data var to save post info in it
                 $data = [
-                    "post_body" => $request->body  ,
-                    'user_Info' => Auth::user() ,   
+                    "post_data"   => $post ,
+                    'user_info' => Auth::user() ,   
                 ];
 
                 // send $data in __construct() event NewNotification 
@@ -61,7 +62,8 @@ class PostController extends Controller
                 return response() -> json([
                     "status" => "success",
                     "msg"    => "messege sent successfully",
-                    "data"   => $post ,
+                    "post_data"   => $post ,
+                    "user_info"   => Auth::user() ,
                 ]);
                 
             }catch( Exception $e ){
