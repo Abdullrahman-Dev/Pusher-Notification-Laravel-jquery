@@ -1923,8 +1923,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      post: {
+        csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        body: ''
+      },
+      errors: {}
+    };
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+
+      axios.get('/api/posts/get_posts').then(function (response) {
+        // console.log(response.data);
+        _this.posts = response.data.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    submitForm: function submitForm() {
+      var _this2 = this;
+
+      axios.post("/api/posts/store", this.post).then(function (response) {
+        // if there success request 
+        console.log(response);
+
+        if (response.data.status == "error" && response.data.msg == "validation error") {
+          _this2.errors = response.data.errors; // equale it with var errors in data
+        } else if (response.data.status == "error" && response.data.msg == "insert opration failed") {
+          alert("insert opration failed");
+          window.location = 'posts';
+        } else if (response.data.status == "success") {
+          _this2.post.body = '';
+          /*============== Add Post ==============*/
+
+          var postsContainer = $('.col-md-8 div.card-container .card-body');
+          var newPostHtml = "<div class=\"container\">\n                                        <div class=\"row\">\n                                             <div class=\"col-12\">\n                                                  <div class=\"card card-white post\">\n                                                       <div class=\"post-heading\">\n                                                            <div class=\"float-left image\">\n                                                                 <img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">\n                                                            </div>\n                                                            <div class=\"float-left meta\">\n                                                                 <div class=\"title h5\">\n                                                                      <a href=\"\"><b> " + response.data.data.user_info.name + " </b></a>\n                                                                 </div>\n                                                                 <h6 class=\"text-muted time\"> 1 second ago  </h6>\n                                                            </div>\n                                                       </div> \n                                                       <div class=\"post-description\"> \n                                                            <p> " + response.data.data.post_data.body + " </p>\n                                                       </div>\n                                                  </div>\n                                             </div>\n                                        </div>\n                                   </div>";
+          postsContainer.append(newPostHtml);
+        }
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -1983,7 +2028,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/posts/get_posts').then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         _this.posts = response.data.data;
       })["catch"](function (error) {
         return console.log(error);
@@ -37584,48 +37629,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v(" Create Post ")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("form", { staticClass: "create-post" }, [
-            _vm._v("\n                    @csrf\n                    "),
-            _c("textarea", {
-              staticClass: "form-control",
-              attrs: {
-                name: "body",
-                id: "body",
-                rows: "5",
-                placeholder: "Type Post Body..."
-              }
-            }),
-            _vm._v(" "),
-            _c("small", { staticClass: "form-text text-danger body pl-1" }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "button",
+  return _c("div", { staticClass: "col-md-8" }, [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [_vm._v(" Create Post ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("form", { staticClass: "create-post" }, [
+          _c("textarea", {
+            directives: [
               {
-                staticClass: "btn btn-success float-right create-post-btn",
-                attrs: { type: "submit" }
-              },
-              [_vm._v(" Submit ")]
-            )
-          ])
+                name: "model",
+                rawName: "v-model",
+                value: _vm.post.body,
+                expression: "post.body"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              name: "body",
+              id: "body",
+              rows: "5",
+              placeholder: "Type Post Body..."
+            },
+            domProps: { value: _vm.post.body },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.post, "body", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.body
+            ? _c("small", { staticClass: "form-text text-danger body pl-1" }, [
+                _vm._v(" " + _vm._s(_vm.errors.body[0]) + " ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success float-right create-post-btn",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitForm($event)
+                }
+              }
+            },
+            [_vm._v(" Submit ")]
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

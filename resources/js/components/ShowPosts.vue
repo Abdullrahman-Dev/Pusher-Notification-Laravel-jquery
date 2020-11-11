@@ -45,7 +45,7 @@
                     axios.get('/api/posts/get_posts')  
                     .then( 
                          response => {  
-                              console.log(response.data);
+                              // console.log(response.data);
                               this.posts = response.data.data 
                          }
                     )
