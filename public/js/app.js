@@ -1923,6 +1923,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+/*======================= Pusher Config ========================*/
+Pusher.logToConsole = true;
+var pusher = new Pusher('3f9a0b89de189c92500c', {
+  cluster: 'mt1'
+});
+var channel = pusher.subscribe('new-post');
+channel.bind('NewPost', function (data) {
+  // alert(JSON.stringify(data));
+
+  /*=========== Add Notifications ==============*/
+  var notificationsCountElem = $('.dropdown-notifications span.badge.badge-pill');
+  var notificationsCount = parseInt($('.dropdown-notifications span.badge.badge-pill').text());
+  var notifications = $('.dropdown-menu.dropdown-menu-right.notifications-container');
+  var newNotificationHtml = "<a class=\"dropdown-item notifications-item\" href=\"\">\n          <img src=\"http://bootdey.com/img/Content/user_1.jpg\" alt=\"img\">\n          <div class=\"text\">\n               <h4>" + data.user_info.name + "</h4>\n               <p> " + data.user_info.name + " create new post </p>\n          </div>\n     </a>";
+  notifications.append(newNotificationHtml);
+  notificationsCount += 1;
+  notificationsCountElem.text(notificationsCount);
+  /*============== Add Post ==============*/
+
+  var postsContainer = $('.col-md-8 div.card-container .card-body');
+  var newPostHtml = "<div class=\"container\">\n               <div class=\"row\">\n                    <div class=\"col-12\">\n                         <div class=\"card card-white post\">\n                              <div class=\"post-heading\">\n                                   <div class=\"float-left image\">\n                                        <img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">\n                                   </div>\n                                   <div class=\"float-left meta\">\n                                        <div class=\"title h5\">\n                                             <a href=\"\"><b> " + data.user_info.name + " </b></a>\n                                        </div>\n                                        <h6 class=\"text-muted time\"> 1 second ago </h6>\n                                   </div>\n                              </div> \n                              <div class=\"post-description\"> \n                                   <p> " + data.post_data.body + " </p>\n                              </div>\n                         </div>\n                    </div>\n               </div>\n          </div>";
+  postsContainer.append(newPostHtml);
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1934,35 +1958,26 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getPosts: function getPosts() {
-      var _this = this;
-
-      axios.get('/api/posts/get_posts').then(function (response) {
-        // console.log(response.data);
-        _this.posts = response.data.data;
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    },
     submitForm: function submitForm() {
-      var _this2 = this;
+      var _this = this;
 
       axios.post("/api/posts/store", this.post).then(function (response) {
         // if there success request 
-        console.log(response);
-
+        // console.log(response)
         if (response.data.status == "error" && response.data.msg == "validation error") {
-          _this2.errors = response.data.errors; // equale it with var errors in data
+          _this.errors = response.data.errors; // equale it with var errors in data
         } else if (response.data.status == "error" && response.data.msg == "insert opration failed") {
           alert("insert opration failed");
           window.location = 'posts';
         } else if (response.data.status == "success") {
-          _this2.post.body = '';
-          /*============== Add Post ==============*/
+          _this.post.body = '';
+          _this.errors = '';
+          /*===================== Add Post =====================*/
 
           var postsContainer = $('.col-md-8 div.card-container .card-body');
           var newPostHtml = "<div class=\"container\">\n                                        <div class=\"row\">\n                                             <div class=\"col-12\">\n                                                  <div class=\"card card-white post\">\n                                                       <div class=\"post-heading\">\n                                                            <div class=\"float-left image\">\n                                                                 <img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">\n                                                            </div>\n                                                            <div class=\"float-left meta\">\n                                                                 <div class=\"title h5\">\n                                                                      <a href=\"\"><b> " + response.data.data.user_info.name + " </b></a>\n                                                                 </div>\n                                                                 <h6 class=\"text-muted time\"> 1 second ago  </h6>\n                                                            </div>\n                                                       </div> \n                                                       <div class=\"post-description\"> \n                                                            <p> " + response.data.data.post_data.body + " </p>\n                                                       </div>\n                                                  </div>\n                                             </div>\n                                        </div>\n                                   </div>";
           postsContainer.append(newPostHtml);
+          /*======================= Pusher Config ========================*/
         }
       })["catch"](function (error) {
         return console.log(error);
@@ -50058,14 +50073,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!************************************************!*\
   !*** ./resources/js/components/CreatePost.vue ***!
   \************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreatePost_vue_vue_type_template_id_20838332___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePost.vue?vue&type=template&id=20838332& */ "./resources/js/components/CreatePost.vue?vue&type=template&id=20838332&");
 /* harmony import */ var _CreatePost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePost.vue?vue&type=script&lang=js& */ "./resources/js/components/CreatePost.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CreatePost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CreatePost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50095,7 +50111,7 @@ component.options.__file = "resources/js/components/CreatePost.vue"
 /*!*************************************************************************!*\
   !*** ./resources/js/components/CreatePost.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
