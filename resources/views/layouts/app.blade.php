@@ -95,8 +95,13 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
 
+        <!-------- Get User ID -------->
+        <div class="userId" data-val=" {{ Auth::id() }} "></div>
+
+
+    </div>
+    
     <!-- App Script -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

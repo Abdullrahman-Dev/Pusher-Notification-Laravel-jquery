@@ -1932,20 +1932,25 @@ var pusher = new Pusher('3f9a0b89de189c92500c', {
 var channel = pusher.subscribe('new-post');
 channel.bind('NewPost', function (data) {
   // alert(JSON.stringify(data));
+  var user_id = parseInt($('#app div.userId').attr('data-val'));
 
-  /*=========== Add Notifications ==============*/
-  var notificationsCountElem = $('.dropdown-notifications span.badge.badge-pill');
-  var notificationsCount = parseInt($('.dropdown-notifications span.badge.badge-pill').text());
-  var notifications = $('.dropdown-menu.dropdown-menu-right.notifications-container');
-  var newNotificationHtml = "<a class=\"dropdown-item notifications-item\" href=\"\">\n          <img src=\"http://bootdey.com/img/Content/user_1.jpg\" alt=\"img\">\n          <div class=\"text\">\n               <h4>" + data.user_info.name + "</h4>\n               <p> " + data.user_info.name + " create new post </p>\n          </div>\n     </a>";
-  notifications.append(newNotificationHtml);
-  notificationsCount += 1;
-  notificationsCountElem.text(notificationsCount);
-  /*============== Add Post ==============*/
+  if (user_id != data.user_info.id) {
+    // don't show notification for me
 
-  var postsContainer = $('.col-md-8 div.card-container .card-body');
-  var newPostHtml = "<div class=\"container\">\n               <div class=\"row\">\n                    <div class=\"col-12\">\n                         <div class=\"card card-white post\">\n                              <div class=\"post-heading\">\n                                   <div class=\"float-left image\">\n                                        <img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">\n                                   </div>\n                                   <div class=\"float-left meta\">\n                                        <div class=\"title h5\">\n                                             <a href=\"\"><b> " + data.user_info.name + " </b></a>\n                                        </div>\n                                        <h6 class=\"text-muted time\"> 1 second ago </h6>\n                                   </div>\n                              </div> \n                              <div class=\"post-description\"> \n                                   <p> " + data.post_data.body + " </p>\n                              </div>\n                         </div>\n                    </div>\n               </div>\n          </div>";
-  postsContainer.append(newPostHtml);
+    /*=========== Add Notifications ==============*/
+    var notificationsCountElem = $('.dropdown-notifications span.badge.badge-pill');
+    var notificationsCount = parseInt($('.dropdown-notifications span.badge.badge-pill').text());
+    var notifications = $('.dropdown-menu.dropdown-menu-right.notifications-container');
+    var newNotificationHtml = "<a class=\"dropdown-item notifications-item\" href=\"\">\n               <img src=\"http://bootdey.com/img/Content/user_1.jpg\" alt=\"img\">\n               <div class=\"text\">\n                    <h4>" + data.user_info.name + "</h4>\n                    <p> " + data.user_info.name + " create new post </p>\n               </div>\n          </a>";
+    notifications.append(newNotificationHtml);
+    notificationsCount += 1;
+    notificationsCountElem.text(notificationsCount);
+    /*============== Add Post ==============*/
+
+    var postsContainer = $('.col-md-8 div.card-container .card-body');
+    var newPostHtml = "<div class=\"container\">\n                    <div class=\"row\">\n                         <div class=\"col-12\">\n                              <div class=\"card card-white post\">\n                                   <div class=\"post-heading\">\n                                        <div class=\"float-left image\">\n                                             <img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">\n                                        </div>\n                                        <div class=\"float-left meta\">\n                                             <div class=\"title h5\">\n                                                  <a href=\"\"><b> " + data.user_info.name + " </b></a>\n                                             </div>\n                                             <h6 class=\"text-muted time\"> 1 second ago </h6>\n                                        </div>\n                                   </div> \n                                   <div class=\"post-description\"> \n                                        <p> " + data.post_data.body + " </p>\n                                   </div>\n                              </div>\n                         </div>\n                    </div>\n               </div>";
+    postsContainer.append(newPostHtml);
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
